@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solicitud de Reintegros</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- Fondos dinámicos -->
+    <div class="background-elements">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+    </div>
+
+    <!-- Contenedor Principal -->
+    <div class="container">
+        <div class="form-wrapper">
+            <div class="header">
+                <div class="icon-header">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        <polyline points="14 2 14 8 20 8"></polyline>
+                        <line x1="12" y1="18" x2="12" y2="12"></line>
+                        <line x1="9" y1="15" x2="15" y2="15"></line>
+                    </svg>
+                </div>
+                <h1>Solicitud de Reintegro</h1>
+                <p>Ingrese los datos y adjunte su comprobante.</p>
+            </div>
+
+            <!-- Formulario -->
+            <form id="reintegroForm">
+
+                <div class="input-row">
+                    <div class="input-group">
+                        <label for="afiliado">Número de Afiliado</label>
+                        <input type="text" id="afiliado" name="afiliado" placeholder="Ej: 12345678" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="nombre">Nombre y Apellido</label>
+                        <input type="text" id="nombre" name="nombre" placeholder="Juan Perez" required>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div class="input-group">
+                        <label for="especialidad">Especialidad Médica</label>
+                        <select id="especialidad" name="especialidad" required>
+                            <option value="" disabled selected>Seleccione especialidad</option>
+                            <option value="Medicina General">Medicina General</option>
+                            <option value="Traumatología">Traumatología</option>
+                            <option value="Cardiología">Cardiología</option>
+                            <option value="Dermatología">Dermatología</option>
+                            <option value="Pediatría">Pediatría</option>
+                            <option value="Odontología">Odontología</option>
+                            <option value="Neurología">Neurología</option>
+                            <option value="Oftalmología">Oftalmología</option>
+                            <option value="Ginecología">Ginecología</option>
+                            <option value="Psiquiatría">Psiquiatría</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="factura">Factura Número</label>
+                        <input type="text" id="factura" name="factura" placeholder="0001-00001234" required>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div class="input-group relative">
+                        <label for="monto">Monto Total</label>
+                        <div class="input-icon">
+                            <span>$</span>
+                            <input type="number" id="monto" name="monto" placeholder="0.00" step="0.01" required>
+                        </div>
+                    </div>
+
+                    <div class="input-group relative">
+                        <label for="montoReintegrar">Monto a Reintegrar</label>
+                        <div class="input-icon">
+                            <span>$</span>
+                            <input type="number" id="montoReintegrar" name="montoReintegrar" placeholder="0.00"
+                                step="0.01" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input-group w-full">
+                    <label for="estado">Estado Actual</label>
+                    <input type="text" id="estado" name="estado" value="En revisión" readonly class="readonly-input">
+                </div>
+
+                <div class="file-upload-wrapper">
+                    <label for="archivo" class="file-upload-label">
+                        <div class="upload-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="17 8 12 3 7 8"></polyline>
+                                <line x1="12" y1="3" x2="12" y2="15"></line>
+                            </svg>
+                        </div>
+                        <span class="upload-text">Seleccionar o arrastrar comprobante</span>
+                        <span class="upload-hint">Formatos: PDF, JPG, PNG (Max. 5MB)</span>
+                    </label>
+                    <input type="file" id="archivo" name="archivo" required accept=".pdf,.jpg,.jpeg,.png">
+                    <div id="fileName" class="file-name-display"></div>
+                </div>
+
+                <button type="submit" id="submitBtn" class="submit-btn hover-effect">
+                    <span class="btn-text">Enviar Solicitud</span>
+                    <div class="loader" id="loader" style="display: none;"></div>
+                </button>
+
+            </form>
+
+            <!-- Mensaje de Éxito -->
+            <div id="successMessage" class="status-message success" style="display: none;">
+                <div class="status-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                    </svg>
+                </div>
+                <h3>¡Solicitud Enviada Exitosamente!</h3>
+                <p>Su solicitud de reintegro ha sido registrada y el archivo guardado en la nube.</p>
+                <button type="button" class="reset-btn hover-effect" id="resetBtn">Nueva Solicitud</button>
+            </div>
+
+            <!-- Mensaje de Error -->
+            <div id="errorMessage" class="status-message error" style="display: none;">
+                <div class="status-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="15" y1="9" x2="9" y2="15"></line>
+                        <line x1="9" y1="9" x2="15" y2="15"></line>
+                    </svg>
+                </div>
+                <h3>Error al Enviar</h3>
+                <p>Ocurrió un problema de comunicación. Por favor intente nuevamente.</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
