@@ -41,7 +41,7 @@
                 <div class="input-row">
                     <div class="input-group">
                         <label for="afiliado">Número de Afiliado</label>
-                        <input type="text" id="afiliado" name="afiliado" placeholder="Ej: 12345678" required>
+                        <input type="text" id="afiliado" name="afiliado" placeholder="Ej: 12345678" inputmode="numeric" pattern="\d*" required>
                     </div>
 
                     <div class="input-group">
@@ -70,7 +70,7 @@
 
                     <div class="input-group">
                         <label for="factura">Factura Número</label>
-                        <input type="text" id="factura" name="factura" placeholder="0001-00001234" required>
+                        <input type="text" id="factura" name="factura" placeholder="0001-00001234" inputmode="numeric" required>
                     </div>
                 </div>
 
@@ -79,7 +79,7 @@
                         <label for="monto">Monto Total</label>
                         <div class="input-icon">
                             <span>$</span>
-                            <input type="number" id="monto" name="monto" placeholder="0.00" step="0.01" required>
+                            <input type="number" id="monto" name="monto" placeholder="0.00" step="0.01" inputmode="decimal" required>
                         </div>
                     </div>
 
@@ -88,7 +88,7 @@
                         <div class="input-icon">
                             <span>$</span>
                             <input type="number" id="montoReintegrar" name="montoReintegrar" placeholder="0.00"
-                                step="0.01" required>
+                                step="0.01" inputmode="decimal" required>
                         </div>
                     </div>
                 </div>
