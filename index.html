@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -109,10 +109,10 @@
                                 <line x1="12" y1="3" x2="12" y2="15"></line>
                             </svg>
                         </div>
-                        <span class="upload-text">Seleccionar o arrastrar comprobante</span>
-                        <span class="upload-hint">Formatos: PDF, JPG, PNG (Max. 5MB)</span>
+                        <span class="upload-text">Seleccionar o arrastrar comprobantes (puede seleccionar varios)</span>
+                        <span class="upload-hint">Formatos: PDF, JPG, PNG (Máx. 5MB c/u)</span>
                     </label>
-                    <input type="file" id="archivo" name="archivo" required accept=".pdf,.jpg,.jpeg,.png">
+                    <input type="file" id="archivo" name="archivos" required accept=".pdf,.jpg,.jpeg,.png" multiple>
                     <div id="fileName" class="file-name-display"></div>
                 </div>
 
