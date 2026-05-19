@@ -40,27 +40,53 @@ especialidadSelect.addEventListener('change', actualizarMontoReintegrar);
 montoInput.addEventListener('input', actualizarMontoReintegrar);
 
 document.getElementById('archivo').addEventListener('change', function (e) {
-    const file = e.target.files[0];
+    const files = Array.from(e.target.files || []);
     const fileNameDisplay = document.getElementById('fileName');
 
-    if (file) {
-        // Validación de tamaño (Max 5MB)
-        if (file.size > 5 * 1024 * 1024) {
-            fileNameDisplay.textContent = '❌ El archivo excede los 5MB';
-            fileNameDisplay.style.color = 'var(--error)';
-            fileNameDisplay.style.backgroundColor = 'rgba(239, 68, 68, 0.1)';
-            fileNameDisplay.style.borderColor = 'rgba(239, 68, 68, 0.2)';
-            e.target.value = ''; // Limpiar input
-        } else {
-            fileNameDisplay.textContent = `✓ Archivo adjunto: ${file.name}`;
-            fileNameDisplay.style.color = 'var(--success)';
-            fileNameDisplay.style.backgroundColor = 'rgba(16, 185, 129, 0.1)';
-            fileNameDisplay.style.borderColor = 'rgba(16, 185, 129, 0.2)';
-        }
-        fileNameDisplay.style.display = 'block';
-    } else {
+    if (files.length === 0) {
         fileNameDisplay.style.display = 'none';
         fileNameDisplay.textContent = '';
+        return;
+    }
+
+    const validFiles = [];
+    const errors = [];
+
+    files.forEach(file => {
+        if (file.size > 5 * 1024 * 1024) {
+            errors.push(`❌ ${file.name} excede los 5MB`);
+        } else {
+            validFiles.push(file);
+        }
+    });
+
+    // Mostrar lista de archivos válidos y errores
+    let html = '';
+    if (validFiles.length) {
+        html += '<div>✓ Archivos adjuntos:</div><ul style="margin:0.25rem 0 0 1rem; padding:0;">';
+        validFiles.forEach(f => {
+            html += `<li style="list-style:none; margin-bottom:4px;">• ${f.name}</li>`;
+        });
+        html += '</ul>';
+    }
+    if (errors.length) {
+        html += '<div style="margin-top:6px; color: var(--text-muted);">' + errors.join('<br>') + '</div>';
+    }
+
+    if (validFiles.length) {
+        fileNameDisplay.innerHTML = html;
+        fileNameDisplay.style.color = 'var(--primary)';
+        fileNameDisplay.style.backgroundColor = 'rgba(75, 106, 61, 0.08)';
+        fileNameDisplay.style.borderColor = 'rgba(75, 106, 61, 0.12)';
+        fileNameDisplay.style.display = 'block';
+    } else {
+        fileNameDisplay.innerHTML = html || '❌ Ningún archivo válido seleccionado';
+        fileNameDisplay.style.color = 'var(--error)';
+        fileNameDisplay.style.backgroundColor = 'rgba(208, 71, 71, 0.08)';
+        fileNameDisplay.style.borderColor = 'rgba(208, 71, 71, 0.12)';
+        fileNameDisplay.style.display = 'block';
+        // If no valid files, clear input so user can reselect
+        e.target.value = '';
     }
 });
 
@@ -77,12 +103,16 @@ document.getElementById('reintegroForm').addEventListener('submit', async functi
     loader.style.display = 'block';
 
     const fileInput = document.getElementById('archivo');
-    const file = fileInput.files[0];
+    const files = Array.from(fileInput.files || []);
 
     try {
-        const base64File = await getBase64(file);
-        // Remove the data:*/*;base64, prefix
-        const base64Content = base64File.split(',')[1];
+        if (files.length === 0) throw new Error('No se seleccionaron archivos válidos');
+
+        // Re-validate sizes and prepare base64 array
+        const validFiles = files.filter(f => f.size <= 5 * 1024 * 1024);
+        if (validFiles.length === 0) throw new Error('Ningún archivo válido (tamaño máximo 5MB)');
+
+        const base64Array = await Promise.all(validFiles.map(f => getBase64(f).then(s => s.split(',')[1])));
 
         const formData = {
             afiliado: document.getElementById('afiliado').value,
@@ -92,9 +122,9 @@ document.getElementById('reintegroForm').addEventListener('submit', async functi
             monto: document.getElementById('monto').value,
             montoReintegrar: document.getElementById('montoReintegrar').value,
             estado: document.getElementById('estado').value,
-            fileName: file.name,
-            mimeType: file.type,
-            fileBase64: base64Content
+            fileNames: validFiles.map(f => f.name),
+            mimeTypes: validFiles.map(f => f.type),
+            fileBase64: base64Array
         };
 
         // We use mode: 'no-cors' so the browser doesn't block the request due to CORS
