@@ -1,15 +1,15 @@
 :root {
-    --primary: #6366f1;
-    --primary-hover: #4f46e5;
-    --background: #0f172a;
-    --surface: #1e293b;
-    --surface-light: #334155;
-    --border: #334155;
-    --text: #f8fafc;
-    --text-muted: #94a3b8;
-    --success: #10b981;
-    --error: #ef4444;
-    --accent: #8b5cf6;
+    --primary: #4b6a3d;
+    --primary-hover: #3f5a33;
+    --background: #f2f4ee;
+    --surface: #ffffff;
+    --surface-light: #eef1e5;
+    --border: #c5c9b8;
+    --text: #252b1f;
+    --text-muted: #6b725d;
+    --success: #3c7e43;
+    --error: #d04747;
+    --accent: #7f9961;
 }
 
 * {
@@ -56,7 +56,7 @@ body {
     left: -10%;
     width: 40vw;
     height: 40vw;
-    background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(127, 153, 97, 0.28) 0%, transparent 70%);
 }
 
 .blob-2 {
@@ -64,7 +64,7 @@ body {
     right: -10%;
     width: 50vw;
     height: 50vw;
-    background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(75, 106, 61, 0.28) 0%, transparent 70%);
     animation-delay: -5s;
 }
 
@@ -81,13 +81,11 @@ body {
 }
 
 .form-wrapper {
-    background: rgba(30, 41, 59, 0.6);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 24px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 26px;
     padding: 2.5rem;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 25px 50px -20px rgba(16, 23, 11, 0.18);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -102,20 +100,18 @@ body {
     justify-content: center;
     width: 64px;
     height: 64px;
-    background: linear-gradient(135deg, rgba(99, 102, 241, 0.2) 0%, rgba(139, 92, 246, 0.2) 100%);
-    border: 1px solid rgba(139, 92, 246, 0.3);
+    background: rgba(75, 106, 61, 0.14);
+    border: 1px solid rgba(75, 106, 61, 0.22);
     border-radius: 16px;
     margin-bottom: 1rem;
-    color: var(--accent);
+    color: var(--primary);
 }
 
 .header h1 {
     font-size: 1.8rem;
     font-weight: 600;
     margin-bottom: 0.5rem;
-    background: linear-gradient(to right, #f8fafc, #cbd5e1);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: var(--text);
 }
 
 .header p {
@@ -156,10 +152,10 @@ input[type="text"],
 input[type="number"],
 select {
     width: 100%;
-    background: rgba(15, 23, 42, 0.5);
+    background: var(--surface-light);
     border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 0.875rem 1rem;
+    border-radius: 14px;
+    padding: 0.95rem 1rem;
     color: var(--text);
     font-family: inherit;
     font-size: 1rem;
@@ -169,10 +165,6 @@ select {
     -webkit-appearance: none;
     -moz-appearance: none;
     padding-right: 1.8rem;
-    background-image: linear-gradient(45deg, transparent 50%, var(--text) 50%), linear-gradient(135deg, var(--text) 50%, transparent 50%);
-    background-position: calc(100% - 1rem) calc(50% - 3px), calc(100% - 0.7rem) calc(50% - 3px);
-    background-size: 6px 6px;
-    background-repeat: no-repeat;
 }
 
 .input-icon {
@@ -193,13 +185,13 @@ select {
 }
 
 input:focus {
-    border-color: var(--primary);
-    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
-    background: rgba(15, 23, 42, 0.8);
+    border-color: var(--primary-hover);
+    box-shadow: 0 0 0 3px rgba(75, 106, 61, 0.18);
+    background: #f7f8f3;
 }
 
 .readonly-input {
-    background: rgba(15, 23, 42, 0.3) !important;
+    background: #f7f8f3 !important;
     color: var(--primary) !important;
     font-weight: 600;
     cursor: default;
@@ -230,7 +222,7 @@ input[type="file"] {
     padding: 2rem 1.5rem;
     border: 2px dashed var(--border);
     border-radius: 16px;
-    background: rgba(15, 23, 42, 0.3);
+    background: var(--surface-light);
     transition: all 0.3s ease;
     cursor: pointer;
     text-align: center;
@@ -238,12 +230,12 @@ input[type="file"] {
 
 .file-upload-wrapper:hover .file-upload-label {
     border-color: var(--primary);
-    background: rgba(99, 102, 241, 0.05);
+    background: rgba(75, 106, 61, 0.08);
 }
 
 .file-upload-wrapper:has(input:focus-visible) .file-upload-label {
     border-color: var(--primary);
-    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+    box-shadow: 0 0 0 3px rgba(75, 106, 61, 0.14);
 }
 
 .upload-icon {
@@ -272,10 +264,10 @@ input[type="file"] {
     display: none;
     margin-top: 0.5rem;
     padding: 0.75rem;
-    background: rgba(16, 185, 129, 0.1);
-    border: 1px solid rgba(16, 185, 129, 0.2);
+    background: rgba(75, 106, 61, 0.1);
+    border: 1px solid rgba(75, 106, 61, 0.2);
     border-radius: 8px;
-    color: var(--success);
+    color: var(--primary);
     font-size: 0.85rem;
     font-weight: 500;
     text-align: center;
@@ -299,14 +291,14 @@ button {
 }
 
 .submit-btn {
-    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%);
     color: white;
-    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+    box-shadow: 0 6px 18px rgba(75, 106, 61, 0.25);
 }
 
 .submit-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
+    box-shadow: 0 10px 24px rgba(75, 106, 61, 0.3);
 }
 
 .submit-btn:active {
@@ -363,12 +355,12 @@ button {
 }
 
 .success .status-icon {
-    background: rgba(16, 185, 129, 0.1);
-    color: var(--success);
+    background: rgba(75, 106, 61, 0.12);
+    color: var(--primary);
 }
 
 .error .status-icon {
-    background: rgba(239, 68, 68, 0.1);
+    background: rgba(208, 71, 71, 0.12);
     color: var(--error);
 }
 
