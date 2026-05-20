@@ -1,16 +1,16 @@
 const URL_WEBAPP_GOOGLE = 'https://script.google.com/macros/s/AKfycbyu2nh6fpoibQfi-zAfMg12o_LRdQNGSCD_tASwFYG8qZZlCPozC4n3gRR9x9EstCxt/exec';
 
 const especialidadesMedicas = [
-    { nombre: 'Medicina General', descuento: 250 },
-    { nombre: 'Traumatología', descuento: 300 },
-    { nombre: 'Cardiología', descuento: 350 },
-    { nombre: 'Dermatología', descuento: 200 },
-    { nombre: 'Pediatría', descuento: 220 },
+    { nombre: 'Medicina General', descuento: 7000 },
+    { nombre: 'Traumatología', descuento: 10500 },
+    { nombre: 'Cardiología', descuento: 10500 },
+    { nombre: 'Dermatología', descuento: 10500 },
+    { nombre: 'Pediatría', descuento: 10500 },
     { nombre: 'Odontología', descuento: 180 },
-    { nombre: 'Neurología', descuento: 320 },
+    { nombre: 'Neurología', descuento: 10500 },
     { nombre: 'Oftalmología', descuento: 210 },
-    { nombre: 'Ginecología', descuento: 240 },
-    { nombre: 'Psiquiatría', descuento: 230 }
+    { nombre: 'Ginecología', descuento: 10500 },
+    { nombre: 'Psiquiatría', descuento: 10500 }
 ];
 
 const descuentoPorEspecialidad = especialidadesMedicas.reduce((map, item) => {
@@ -21,6 +21,36 @@ const descuentoPorEspecialidad = especialidadesMedicas.reduce((map, item) => {
 const especialidadSelect = document.getElementById('especialidad');
 const montoInput = document.getElementById('monto');
 const montoReintegrarInput = document.getElementById('montoReintegrar');
+const afiliadoInput = document.getElementById('afiliado');
+
+function formatAfiliadoValue(value) {
+    const digits = value.replace(/\D/g, '');
+    if (digits.length <= 2) {
+        return digits;
+    }
+    return digits.slice(0, -2) + '/' + digits.slice(-2);
+}
+
+function updateAfiliadoInput(event) {
+    const originalValue = event.target.value;
+    const cursorPosition = event.target.selectionStart;
+    const digitsBeforeCursor = originalValue.slice(0, cursorPosition).replace(/\D/g, '').length;
+    const formatted = formatAfiliadoValue(originalValue);
+
+    event.target.value = formatted;
+
+    let newCursor = digitsBeforeCursor;
+    if (digitsBeforeCursor > 2) {
+        newCursor += 1; // account for the inserted slash
+    }
+    newCursor = Math.min(newCursor, formatted.length);
+    event.target.setSelectionRange(newCursor, newCursor);
+}
+
+afiliadoInput.addEventListener('input', updateAfiliadoInput);
+afiliadoInput.addEventListener('blur', function (event) {
+    event.target.value = formatAfiliadoValue(event.target.value);
+});
 
 function actualizarMontoReintegrar() {
     const monto = parseFloat(montoInput.value);
