@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -37,6 +37,20 @@
 
             <!-- Formulario -->
             <form id="reintegroForm">
+
+                <div class="input-row">
+                    <div class="input-group">
+                        <label for="selectorAfiliado">Seleccionar Afiliado (modo prueba)</label>
+                        <select id="selectorAfiliado">
+                            <option value="" selected>-- Modo prueba: seleccionar afiliado --</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="email">Email afiliado</label>
+                        <input type="email" id="email" name="email" placeholder="email@dominio.com">
+                    </div>
+                </div>
 
                 <div class="input-row">
                     <div class="input-group">
@@ -82,18 +96,10 @@
                             <input type="number" id="monto" name="monto" placeholder="0.00" step="0.01" inputmode="decimal" required>
                         </div>
                     </div>
-
-                    <div class="input-group relative">
-                        <label for="montoReintegrar">Monto a Reintegrar</label>
-                        <div class="input-icon">
-                            <span>$</span>
-                            <input type="number" id="montoReintegrar" name="montoReintegrar" placeholder="0.00"
-                                step="0.01" inputmode="decimal" required>
-                        </div>
-                    </div>
                 </div>
 
-                <input type="hidden" id="estado" name="estado" value="En revisión">
+                <input type="hidden" id="montoReintegrar" name="montoReintegrar" value="">
+                <input type="hidden" id="estado" name="estado" value="Nuevo reintegro">
 
                 <div class="file-upload-wrapper">
                     <label for="archivo" class="file-upload-label">
@@ -150,7 +156,7 @@
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script type="module" src="script.js"></script>
 </body>
 
 </html>
