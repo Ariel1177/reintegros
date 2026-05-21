@@ -1,3 +1,5 @@
+import afiliados from './afiliados.js';
+
 const URL_WEBAPP_GOOGLE = 'https://script.google.com/macros/s/AKfycbyu2nh6fpoibQfi-zAfMg12o_LRdQNGSCD_tASwFYG8qZZlCPozC4n3gRR9x9EstCxt/exec';
 
 const especialidadesMedicas = [
@@ -22,6 +24,8 @@ const especialidadSelect = document.getElementById('especialidad');
 const montoInput = document.getElementById('monto');
 const montoReintegrarInput = document.getElementById('montoReintegrar');
 const afiliadoInput = document.getElementById('afiliado');
+const selectorAfiliado = document.getElementById('selectorAfiliado');
+const emailInput = document.getElementById('email');
 
 function formatAfiliadoValue(value) {
     const digits = value.replace(/\D/g, '');
@@ -51,6 +55,36 @@ afiliadoInput.addEventListener('input', updateAfiliadoInput);
 afiliadoInput.addEventListener('blur', function (event) {
     event.target.value = formatAfiliadoValue(event.target.value);
 });
+
+function populateAfiliadoSelect() {
+    if (!selectorAfiliado) return;
+    selectorAfiliado.innerHTML = '<option value="">-- Modo prueba: seleccionar afiliado --</option>';
+    afiliados.forEach(a => {
+        const opt = document.createElement('option');
+        opt.value = a.id;
+        opt.textContent = `${a.numeroAf} — ${a.nombre}`;
+        opt.dataset.numeroAf = a.numeroAf;
+        opt.dataset.nombre = a.nombre;
+        opt.dataset.email = a.email;
+        selectorAfiliado.appendChild(opt);
+    });
+}
+
+if (selectorAfiliado) {
+    selectorAfiliado.addEventListener('change', function () {
+        const selected = selectorAfiliado.selectedOptions[0];
+        if (!selected || !selected.value) {
+            afiliadoInput.value = '';
+            document.getElementById('nombre').value = '';
+            if (emailInput) emailInput.value = '';
+            return;
+        }
+        afiliadoInput.value = selected.dataset.numeroAf || '';
+        document.getElementById('nombre').value = selected.dataset.nombre || '';
+        if (emailInput) emailInput.value = selected.dataset.email || '';
+    });
+    populateAfiliadoSelect();
+}
 
 function actualizarMontoReintegrar() {
     const monto = parseFloat(montoInput.value);
@@ -147,6 +181,7 @@ document.getElementById('reintegroForm').addEventListener('submit', async functi
         const formData = {
             afiliado: document.getElementById('afiliado').value,
             nombre: document.getElementById('nombre').value,
+            email: document.getElementById('email') ? document.getElementById('email').value : '',
             especialidad: document.getElementById('especialidad').value,
             factura: document.getElementById('factura').value,
             monto: document.getElementById('monto').value,
