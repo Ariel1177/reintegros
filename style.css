@@ -223,6 +223,11 @@ input:focus {
     cursor: default;
 }
 
+/* Campos ocultos pero funcionales */
+.hidden-field {
+    display: none !important;
+}
+
 /* File Upload */
 .file-upload-wrapper {
     position: relative;
