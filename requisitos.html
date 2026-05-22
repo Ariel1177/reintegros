@@ -1,0 +1,347 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Requisitos de Reintegros</title>
+
+  <style>
+    :root {
+      --bg: #e9f3ed;
+      --surface: #ffffff;
+      --surface-soft: #f3faf5;
+      --border: #c8dfd3;
+      --text: #162f24;
+      --text-muted: #53655a;
+      --primary: #007c54;
+      --primary-dark: #005843;
+      --accent: #00936c;
+      --header-start: #0f6a42;
+      --header-end: #009270;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(180deg, #f3faf5 0%, #e9f3ed 100%);
+      padding: 40px 20px;
+      color: var(--text);
+    }
+
+    .container {
+      max-width: 920px;
+      margin: auto;
+      background: var(--surface);
+      border-radius: 22px;
+      overflow: hidden;
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      box-shadow: 0 18px 45px rgba(36, 75, 54, 0.12);
+    }
+
+    .header {
+      background: linear-gradient(135deg, var(--header-start), var(--header-end));
+      color: white;
+      padding: 42px 36px;
+      text-align: center;
+    }
+
+    .header h1 {
+      font-size: 38px;
+      margin-bottom: 12px;
+      letter-spacing: 1px;
+      line-height: 1.05;
+    }
+
+    .header p {
+      color: rgba(255, 255, 255, 0.92);
+      font-size: 16px;
+      max-width: 720px;
+      margin: auto;
+      line-height: 1.6;
+    }
+
+    .accordion {
+      padding: 28px 30px 32px;
+    }
+
+    details {
+      margin-bottom: 18px;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      background: var(--surface);
+    }
+
+    details:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 14px 30px rgba(28, 71, 50, 0.08);
+    }
+
+    details[open] {
+      box-shadow: 0 16px 38px rgba(28, 71, 50, 0.12);
+    }
+
+    summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 22px 24px;
+      font-size: 20px;
+      font-weight: 700;
+      color: white;
+      position: relative;
+      transition: background 0.3s ease;
+    }
+
+    summary::-webkit-details-marker {
+      display: none;
+    }
+
+    summary::after {
+      content: "+";
+      position: absolute;
+      right: 24px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 28px;
+      transition: transform 0.3s ease;
+    }
+
+    details[open] summary::after {
+      transform: translateY(-50%) rotate(45deg);
+    }
+
+    .content {
+      padding: 24px 24px 30px;
+      line-height: 1.8;
+      background: var(--surface-soft);
+      color: var(--text-muted);
+      font-size: 16px;
+    }
+
+    .content p {
+      margin-bottom: 16px;
+    }
+
+    .content ul {
+      padding-left: 22px;
+      margin-top: 12px;
+    }
+
+    .content li {
+      margin-bottom: 10px;
+    }
+
+    .content strong {
+      color: var(--text);
+    }
+
+    .consulta summary {
+      background: #008a63;
+    }
+
+    .estudios summary {
+      background: #007651;
+    }
+
+    .medicacion summary {
+      background: #006a47;
+    }
+
+    .lentes summary {
+      background: #00956f;
+    }
+
+    .discapacidad summary {
+      background: #00523f;
+    }
+
+    .importante summary {
+      background: #004236;
+    }
+
+    .back-button-wrapper {
+      text-align: center;
+      margin: 0 30px 26px;
+    }
+
+    .back-button {
+      display: inline-block;
+      padding: 14px 28px;
+      border-radius: 999px;
+      background: var(--accent);
+      color: white;
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+
+    .back-button:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 20px rgba(0, 0, 0, 0.12);
+    }
+
+    .footer {
+      text-align: center;
+      padding: 25px;
+      background: #f1f7f1;
+      color: #5b6c60;
+      font-size: 14px;
+    }
+
+    @media (max-width: 720px) {
+      body {
+        padding: 24px 14px;
+      }
+
+      .header {
+        padding: 30px 20px;
+      }
+
+      .header h1 {
+        font-size: 30px;
+      }
+
+      summary {
+        font-size: 18px;
+        padding: 18px 20px;
+      }
+
+      .content {
+        font-size: 15px;
+        padding: 20px;
+      }
+
+      .back-button-wrapper {
+        margin: 0 20px 22px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <div class="header">
+      <h1>REQUISITOS DE REINTEGROS</h1>
+      <p>Documentación necesaria para gestionar reintegros médicos</p>
+    </div>
+
+    <div class="accordion">
+
+      <details class="consulta">
+        <summary>Consultas Médicas</summary>
+
+        <div class="content">
+          <p>Para solicitar reintegro por consultas médicas deberá presentar:</p>
+
+          <ul>
+            <li>Fotocopia de credencial.</li>
+            <li>Factura fiscal tipo A, B o C.</li>
+            <li>Especialidad médica aclarada o certificado de atención.</li>
+          </ul>
+        </div>
+      </details>
+
+      <details class="estudios">
+        <summary>Estudios Médicos</summary>
+
+        <div class="content">
+          <p>Documentación requerida:</p>
+
+          <ul>
+            <li>Orden médica o resultados en fotocopia.</li>
+            <li>Estudios previamente autorizados en Auditoría Médica.</li>
+          </ul>
+        </div>
+      </details>
+
+      <details class="medicacion">
+        <summary>Medicación</summary>
+
+        <div class="content">
+
+          <ul>
+            <li>Orden médica con datos del afiliado.</li>
+            <li>Ticket original con detalle de la medicación.</li>
+            <li>Troqueles correspondientes.</li>
+          </ul>
+
+          <p>
+            La medicación con cobertura del 50%, 70% o 100% deberá
+            contar con firma en Auditoría Médica.
+          </p>
+
+        </div>
+      </details>
+
+      <details class="lentes">
+        <summary>Beneficio de Lentes - Hasta 15 años</summary>
+
+        <div class="content">
+
+          <ul>
+            <li>Orden médica.</li>
+            <li>Factura fiscal.</li>
+            <li>Copia de la credencial.</li>
+          </ul>
+
+          <p><strong>Tope máximo de reintegro: $70.000</strong></p>
+
+        </div>
+      </details>
+
+      <details class="discapacidad">
+        <summary>Lentes con Discapacidad</summary>
+
+        <div class="content">
+
+          <ul>
+            <li>Orden médica.</li>
+            <li>Tres presupuestos.</li>
+            <li>Factura fiscal autorizada en discapacidad.</li>
+            <li>Copia de la credencial.</li>
+          </ul>
+
+        </div>
+      </details>
+
+      <details class="importante">
+        <summary>Información Importante</summary>
+
+        <div class="content">
+
+          <ul>
+            <li>No se tomarán facturas con más de 30 días desde la fecha de emisión.</li>
+            <li>La documentación deberá estar completa y legible.</li>
+            <li>La falta de requisitos puede demorar el reintegro.</li>
+          </ul>
+
+        </div>
+      </details>
+
+    </div>
+
+    <div class="back-button-wrapper">
+      <a href="index.html" class="back-button">Volver al formulario</a>
+    </div>
+
+    <div class="footer">
+      Obra Social • Departamento de Reintegros
+    </div>
+
+  </div>
+
+</body>
+</html>
+
+
