@@ -119,6 +119,31 @@ body {
     font-size: 0.95rem;
 }
 
+.header a {
+    display: inline-block;
+    margin-top: 1.2rem;
+    padding: 0.75rem 1.5rem;
+    background: rgba(75, 106, 61, 0.12);
+    border: 1.5px solid var(--primary);
+    border-radius: 12px;
+    color: var(--primary);
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.header a:hover {
+    background: var(--primary);
+    color: white;
+    box-shadow: 0 6px 16px rgba(75, 106, 61, 0.25);
+    transform: translateY(-2px);
+}
+
+.header a:active {
+    transform: translateY(0);
+}
+
 /* Inputs */
 .input-row {
     display: grid;
