@@ -1,6 +1,6 @@
 import afiliados from './afiliados.js';
 
-const URL_WEBAPP_GOOGLE = 'https://script.google.com/macros/s/AKfycbyu2nh6fpoibQfi-zAfMg12o_LRdQNGSCD_tASwFYG8qZZlCPozC4n3gRR9x9EstCxt/exec';
+const URL_WEBAPP_GOOGLE = 'https://script.google.com/macros/s/AKfycbxCbF1A47z6NlFqQR2XseL3rhpHGkHWl66FMxUwcjKVha0boHZ97J4b_OEo5TDHWIBL/exec';
 
 const especialidadesMedicas = [
     { nombre: 'Medicina General', descuento: 7000 },
